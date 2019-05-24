@@ -1,0 +1,129 @@
+<template>
+    <div>
+
+        <component :is="item" v-for="item in items" :key="item.text"></component>
+
+        <p>{{currentView}}</p>
+
+        <button @click="changeView('A')">切换到A</button>
+
+        <button @click="changeView('B')">切换到B</button>
+
+        <button @click="changeView('C')">切换到C</button>
+
+        <draggable v-model="colors" @update="datadragEnd" :options="{animation:500}">
+            <transition-group>
+                <div v-for="element in colors" :key="element.text" class="drag-item">
+                    {{element.text}}
+                </div>
+            </transition-group>
+        </draggable>
+    </div>
+</template>
+
+<script>
+    import draggable from 'vuedraggable'
+    import A from './A'
+    import B from './B'
+    import C from './C'
+    import D from './D'
+    import E from './E'
+
+    export default {
+        data() {
+            return {
+                currentView: 'comA',
+                msg: "这是测试组件",
+                colors: [
+                    {
+                        text: "Aquamarine",
+                    },
+                    {
+                        text: "Hotpink",
+                    },
+                    {
+                        text: "Gold",
+                    },
+                    {
+                        text: "Crimson",
+                    },
+                    {
+                        text: "Blueviolet",
+                    },
+                    {
+                        text: "Lightblue",
+                    },
+                    {
+                        text: "Cornflowerblue",
+                    },
+                    {
+                        text: "Skyblue",
+                    },
+                    {
+                        text: "Burlywood",
+                    }
+                ],
+                startArr: [],
+                endArr: [],
+                count: 0,
+                items: [ C,D,A,E,B]
+            }
+        },
+        components: {
+            A, B, C, D, E,
+            draggable
+        },
+        methods: {
+            changeView: function (data) {
+                this.currentView = data//动态地改变currentView的值就可以动态挂载组件了。
+            },
+
+            getdata(evt) {
+                console.log(evt.draggedContext.element.text)
+            },
+            datadragEnd(evt) {
+                evt.preventDefault();
+                console.log('拖动前的索引 :' + evt.oldIndex)
+                console.log('拖动后的索引 :' + evt.newIndex)
+                console.log(this.colors);
+            }
+        },
+        mounted() {
+            //为了防止火狐浏览器拖拽的时候以新标签打开，此代码真实有效
+            document.body.ondrop = function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+        }
+    }
+</script>
+
+<style>
+    .test {
+        border: 1px solid #ccc;
+    }
+
+    .drag-item {
+        width: 200px;
+        height: 50px;
+        line-height: 50px;
+        margin: auto;
+        position: relative;
+        background: #ddd;
+        margin-top: 20px;
+    }
+
+    .ghostClass {
+        opacity: 1;
+    }
+
+    .bottom {
+        width: 200px;
+        height: 50px;
+        position: relative;
+        background: blue;
+        top: 2px;
+        left: 2px;
+        transition: all .5s linear;
+    }
+</style>
