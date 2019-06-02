@@ -1,8 +1,6 @@
 <template>
-    <div>
-        <el-row>
-            <el-col :span="6" v-for="item in colors" :key="item.text">{{item.text}}</el-col>
-        </el-row>
+    <div class="rowBorder">
+        <el-row class="fontWeight">B组件</el-row>
         <el-row :gutter="10">
             <el-col :span="24">
                 <div class="grid-content"></div>
@@ -16,23 +14,5 @@
 
 <script>
     export default {
-        data() {
-            return {
-                colors: [
-                    {
-                        text: "Brimson",
-                    },
-                    {
-                        text: "Blueviolet",
-                    },
-                    {
-                        text: "Bightblue",
-                    },
-                    {
-                        text: "Bornflowerblue",
-                    }
-                ]
-            }
-        }
     }
 </script>
