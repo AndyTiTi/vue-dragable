@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-row style="margin-bottom: 100px;">
+        <el-row class="dynamic" style="margin-bottom: 100px;">
             <transition-group appear>
                 <component :is="item.com" v-for="(item,i) in Components" :key="item.name"
                            @click.native="del(i)"></component>
@@ -41,17 +41,6 @@
         </el-row>
         <hr>
         <el-row style="margin: 100px 0;">
-            <trans-group/>
-            <p>{{currentView}}</p>
-
-            <button @click="changeView('A')">切换到A</button>
-
-            <button @click="changeView('B')">切换到B</button>
-
-            <button @click="changeView('C')">切换到C</button>
-        </el-row>
-        <hr>
-        <el-row style="margin-top: 100px;">
             <el-col :span="12">
                 <draggable v-model="colors" @update="datadragEnd">
                     <transition-group>
@@ -67,6 +56,21 @@
                 </p>
             </el-col>
         </el-row>
+        <hr>
+        <el-row>
+            <dynamic-layout/>
+        </el-row>
+        <hr>
+        <el-row style="margin: 100px 0;">
+            <trans-group/>
+            <p>{{currentView}}</p>
+
+            <button @click="changeView('A')">切换到A</button>
+
+            <button @click="changeView('B')">切换到B</button>
+
+            <button @click="changeView('C')">切换到C</button>
+        </el-row>
     </div>
 </template>
 
@@ -78,6 +82,7 @@
   import D from './D'
   import E from './E'
   import transGroup from './transition-group'
+  import dynamicLayout from './dynamic-layout'
 
   export default {
     data() {
@@ -126,6 +131,7 @@
     components: {
       A, B, C, D, E,
       transGroup,
+      dynamicLayout,
       draggable
     },
     methods: {
@@ -199,6 +205,11 @@
 </script>
 
 <style>
+    .dynamic .grid-content {
+        border-radius: 4px;
+        min-height: 36px;
+        background: green;
+    }
     li {
         list-style: none;
         border: 1px dashed #999999;

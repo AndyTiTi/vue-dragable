@@ -31,7 +31,7 @@
             </el-col>
             <el-col :span="1" class="vertical">左右拖放</el-col>
             <el-col :span="11">
-                <draggable element="span" v-model="list2" v-bind="dragOptions" :move="onMove">
+                <draggable v-model="list2" v-bind="dragOptions" :move="onMove">
                     <transition-group name="no" class="list-group" tag="ul">
                         <li class="list-group-item" v-for="element in list2" :key="element.order">
                             <i :class="element.fixed? 'fa fa-anchor' : 'glyphicon glyphicon-pushpin'"
@@ -94,6 +94,8 @@
       onMove({relatedContext, draggedContext}) {
         const relatedElement = relatedContext.element;
         const draggedElement = draggedContext.element;
+        console.log(relatedElement)
+        console.log(draggedElement)
         return (
           (!relatedElement || !relatedElement.fixed) && !draggedElement.fixed
         );

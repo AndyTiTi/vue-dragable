@@ -41,10 +41,4 @@
         margin-bottom: 10px;
     }
 
-    .grid-content {
-        border-radius: 4px;
-        min-height: 36px;
-        background: green;
-    }
-
 </style>
